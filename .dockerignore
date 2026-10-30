@@ -1,0 +1,8 @@
+.git
+.silver-tools
+.silver-tmp
+executions
+node_modules
+*.tar
+*.tar.gz
+*.tgz

@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@silver/protocol": ["packages/protocol/src/index.ts"],
+      "@silver/isolation": ["packages/isolation/src/index.ts"],
+      "@silver/ledger": ["packages/ledger/src/index.ts"],
+      "@silver/platform-mock": ["packages/platform-mock/src/index.ts"],
+      "@silver/oracle": ["packages/oracle/src/index.ts"],
+      "@silver/ctf-spine": ["packages/ctf-spine/src/index.ts"],
+      "@silver/host": ["packages/host/src/index.ts"],
+      "@silver/awd-plane": ["packages/awd-plane/src/index.ts"]
+    }
+  },
+  "include": ["packages/*/src/**/*.ts"]
+}

@@ -1,0 +1,17 @@
+# Copy to silver.local.yaml (gitignored). Put the API key in env, never in this file.
+#   export DEEPSEEK_API_KEY='...'
+#   silver run --live --config silver.local.yaml
+defaults:
+  provider: deepseek-official
+  model: deepseek-flash
+  effort: off
+  presentation: native
+
+runtime:
+  executionProfile: host
+
+providers:
+  deepseek-official:
+    # DSH 0.1.7-rc.2 llm-deepseek is Messages-only and POSTs below this API root.
+    baseUrl: https://api.deepseek.com/anthropic
+    apiKeyRef: env:DEEPSEEK_API_KEY

@@ -1,0 +1,35 @@
+{
+  "name": "@silver/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/dsh-ui-plugin.js",
+    "./client": "./src/dsh-ui-client.js"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ]
+    }
+  },
+  "bin": {
+    "silver": "./src/main.ts"
+  },
+  "dependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-session": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-session-persistence": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-session-persistence-jsonl": "0.2.1-rc.1",
+    "@silver/host": "*",
+    "@silver/isolation": "*",
+    "@silver/ledger": "*",
+    "@silver/platform-mock": "*",
+    "@silver/protocol": "*",
+    "yaml": "^2.9.1"
+  }
+}

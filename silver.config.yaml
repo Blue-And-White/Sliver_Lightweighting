@@ -1,0 +1,128 @@
+# Declarative Silver model config. CLI: silver run --config silver.config.yaml --profile cheap-swarm
+# Secrets stay in env/keychain. Never put apiKey / token / password here.
+# Let the DSH DeepSeek adapter choose its default reasoning effort.
+# If contextWindow + maxTokens are declared, Silver writes a
+# matching live compaction policy; otherwise official DSH / adapter catalog
+# defaults own capacity.
+defaults:
+  provider: deepseek-official
+  model: deepseek-flash
+  effort: default
+  presentation: native
+
+providers:
+  deepseek-official:
+    llmPlugin: llm-deepseek
+    baseUrl: https://api.deepseek.com/anthropic
+    apiKeyRef: env:DEEPSEEK_API_KEY
+    models:
+      deepseek-flash: {}
+  bigmodel-glm:
+    llmPlugin: llm-pi-ai
+    api: openai-completions
+    auth: api-key
+    baseUrl: https://open.bigmodel.cn/api/paas/v4
+    apiKeyRef: env:BIGMODEL_API_KEY
+    models:
+      glm-5.3-flash:
+        contextWindow: 1000000
+        reasoningEfforts:
+          low: low
+
+agents:
+  # Historical compatibility key. The injected persona is the generic Task Executor contract.
+  ctf-solver:
+    provider: deepseek-official
+    model: deepseek-flash
+  skeptic:
+    provider: deepseek-official
+    model: deepseek-flash
+  verifier:
+    provider: deepseek-official
+    model: deepseek-flash
+
+competition:
+  # Historical compatibility section for an optional external completion adapter.
+  track: jeopardy
+  # Keep local result-shape validation open; the external adapter is authoritative.
+  flagPattern: any
+  # Optional external scope supplied by the task.
+  inScope: []
+  # Optional external guidance is disabled by default.
+  hintPolicy: off
+
+# HostFs --live budget. Default room wall is 90 minutes with no chat-turn hard cap.
+# Set maxTurns > 0 only for an explicit turn limit. CLI --timeout-ms / --max-turns override.
+live:
+  timeoutMs: 5400000
+  maxTurns: 0
+
+# Each work item starts an isolated two-graph room. Inside each room, one
+# persistent End-to-End Executor and one persistent Explorer run alongside
+# three fresh FIFO Task Executors.
+# The first swarmCount single-fast slices select the swarm models; one slice is duplicated.
+room:
+  # Historical runtime identifier for the current dual-graph collaboration loop.
+  mode: three-graph
+  swarmCount: 1
+
+# Optional external DSH skill-filesystem roots. The public build ships no
+# bundled catalog and mounts nothing unless roots are configured.
+skills:
+  catalogDescriptionMaxLength: 240
+  # roots: []
+
+attemptPolicies:
+  single-fast:
+    attempts:
+      - provider: deepseek-official
+        model: deepseek-flash
+        presentation: native
+      - provider: deepseek-official
+        model: deepseek-flash
+        presentation: native
+  # Legacy thin-loop policy. The dual-graph room does not read it.
+  thin-bootstrap:
+    attempts:
+      - provider: deepseek-official
+        model: deepseek-flash
+        presentation: native
+      - provider: deepseek-official
+        model: deepseek-flash
+        presentation: native
+  cheap-swarm:
+    attempts:
+      - presentation: native
+      - presentation: code
+      - presentation: native
+  groups-3:
+    attempts:
+      - presentation: native
+      - presentation: native
+      - presentation: native
+  # Override provider/model per slice for mixed-model Groups. Host starts all three roots.
+  heterogeneous-3:
+    attempts:
+      - presentation: native
+      - presentation: native
+      - presentation: native
+  # Host-started independent roots + Silver Room Feed/Status. Not official DSH Team.
+  swarm:
+    attempts:
+      - presentation: native
+      - presentation: native
+      - presentation: native
+
+# Team capacity. The Lead starts alone and recruits Task Executors through DSH.
+swarm:
+  initialWorkers: 0
+  maxWorkers: 6
+  modelPolicy: homogeneous
+  chat:
+    enabled: true
+    delivery: index-only
+
+# Run tools directly on the local machine. DSH sessions and Team executors remain
+# separate; only their command execution uses the Host environment.
+runtime:
+  executionProfile: host

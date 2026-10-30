@@ -1,0 +1,54 @@
+{
+  "name": "silver",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "description": "Sliver: a DSH-based dual-graph framework for long-running multi-agent collaboration.",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "run:live": "node --experimental-strip-types --no-warnings packages/cli/src/main.ts run --live",
+    "mission": "node --experimental-strip-types --no-warnings packages/cli/src/main.ts run",
+    "run:mini": "node --experimental-strip-types --no-warnings packages/cli/src/main.ts run",
+    "cell:image": "docker build -f docker/cell/Dockerfile -t silver-cell:local .",
+    "dsh:dump": "dsh --profile headless --dump-config --patch packages/ctf-spine/cordis.patch.yml",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/dsh-experimental-agent-team": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-experimental-agent-team-profile": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-experimental-tool-agent-team": "0.2.1-rc.1",
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@agentclientprotocol/sdk": "1.4.0",
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/cordis-plugin-group": "1.0.5",
+    "@deepseek-ai/dsh": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-compaction": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-deepseek-account": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-jobs": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-output-retention": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-ptc-runtime": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-ptc-runtime-node": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-sandbox": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-scope": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-session-persistence": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-session-projection-cache": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-session-query": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-spill": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-storage": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-storage-domain": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-storage-json": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-util-time": "0.2.1-rc.1",
+    "@deepseek-ai/dsh-workflow": "0.2.1-rc.1"
+  }
+}

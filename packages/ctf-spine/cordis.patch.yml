@@ -1,0 +1,5 @@
+# Official DSH is the kernel (dsh-base + headless profile).
+# Silver inserts collaboration tools only. Do not reimplement session/loop/llm here.
+- insert:
+    - id: silver-ctf-spine
+      name: "@silver/ctf-spine"

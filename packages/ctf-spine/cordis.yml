@@ -1,0 +1,6 @@
+# Historical package name retained for compatibility with existing imports.
+# Kernel: @deepseek-ai/dsh-session, dsh-tools, dsh-agent-loop, dsh-llm, dsh-code-runtime.
+# This Cordis patch installs Silver collaboration tools. See cordis.patch.yml.
+plugins:
+  - id: silver-ctf-spine
+    name: "@silver/ctf-spine"
