@@ -52,7 +52,7 @@ Sliver 关注多个 Agent 如何在长时间运行中持续推进：各自选择
 
 ## 两张共享图
 
-共享状态的设计借鉴了 [Cairn](https://github.com/oritera/Cairn) 的 Blackboard 思路；Sliver 用两张相互关联的图呈现事实与探索过程。
+Sliver 将协作状态组织为两张相互关联的图，分别呈现可复用的事实和探索过程。
 
 - **Intel Graph**：保存可复用、由证据支持的事实和能力。
 - **Exploration Graph**：保存当前意图、尝试、结果、交接、盲区和仍需验证的问题。

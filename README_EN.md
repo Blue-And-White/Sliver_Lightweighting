@@ -58,7 +58,7 @@ A Room contains these roles by default:
 
 ## Two shared graphs
 
-The shared-state design draws on [Cairn](https://github.com/oritera/Cairn)'s Blackboard approach. Sliver presents facts and exploration through two related graphs.
+Sliver organizes shared state into two related graphs for reusable facts and the exploration process.
 
 - **Intel Graph** holds reusable, evidence-backed facts and capabilities.
 - **Exploration Graph** holds current Intents, attempts, results, handoffs, blind spots, and open questions.
